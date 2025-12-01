@@ -1,0 +1,16 @@
+# Security Policy
+
+## Reporting a Vulnerability
+
+If you discover a security vulnerability, please email us directly instead of opening a public issue.
+
+## Smart Contract
+
+- Contract is deployed on Base Mainnet
+- No external dependencies
+- Reentrancy protected
+- Owner functions limited
+
+## Audits
+
+Community audit in progress.
