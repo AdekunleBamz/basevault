@@ -1,5 +1,6 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 import { base } from 'wagmi/chains';
+import { parseAbi } from 'viem';
 
 // Get contract address from env
 const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
@@ -14,7 +15,7 @@ export const config = getDefaultConfig({
 export const CONTRACT_ADDRESS = contractAddress;
 
 // Contract ABI
-export const CONTRACT_ABI = [
+export const CONTRACT_ABI = parseAbi([
   // Read functions
   "function getUserStats(address user) view returns (uint256 deposited, uint256 tickets, uint256 totalWinnings, uint256 referralEarnings, uint256 pendingRewards, uint256 referralCount, uint256 achievementFlags)",
   "function getCurrentRound() view returns (uint256 id, uint256 startTime, uint256 endTime, uint256 roundTickets, uint256 prize, bool finalized)",
@@ -44,7 +45,7 @@ export const CONTRACT_ABI = [
   "event ReferralPaid(address indexed referrer, address indexed referee, uint256 amount)",
   "event AchievementUnlocked(address indexed user, uint256 achievementId, string name)",
   "event CircleCreated(uint256 indexed circleId, string name, address indexed creator, uint256 target)",
-];
+]);
 
 // Achievement definitions
 export const ACHIEVEMENTS = [

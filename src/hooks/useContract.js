@@ -33,15 +33,19 @@ export function useContract() {
         functionName: 'getUserStats',
         args: [userAddress],
       });
-      
+      // Validate and normalize tuple
+      if (!Array.isArray(stats) || stats.length < 7) {
+        console.warn('Unexpected user stats shape:', stats);
+        return;
+      }
       setUserStats({
         deposited: formatEther(stats[0]),
-        tickets: stats[1].toString(),
+        tickets: stats[1]?.toString?.() ?? '0',
         totalWinnings: formatEther(stats[2]),
         referralEarnings: formatEther(stats[3]),
         pendingRewards: formatEther(stats[4]),
-        referralCount: stats[5].toString(),
-        achievementFlags: stats[6].toString(),
+        referralCount: stats[5]?.toString?.() ?? '0',
+        achievementFlags: stats[6]?.toString?.() ?? '0',
       });
     } catch (err) {
       console.error('Error fetching user stats:', err);
