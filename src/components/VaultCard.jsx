@@ -5,7 +5,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
-import { getTxUrl } from '../utils/helpers';
+import { getTxUrl, formatETH } from '../utils/helpers';
 import { QUICK_AMOUNTS, GAS_BUFFER, LOTTERY } from '../utils/constants';
 
 export function VaultCard() {
@@ -121,7 +121,7 @@ export function VaultCard() {
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Wallet Balance</span>
             <span className="font-mono font-bold text-lg">
-              {parseFloat(balanceData.formatted).toFixed(4)} ETH
+              {formatETH(balanceData.formatted)} ETH
             </span>
           </div>
         </div>
@@ -133,7 +133,7 @@ export function VaultCard() {
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Vault Balance</span>
             <span className="font-mono font-bold text-lg">
-              {parseFloat(userStats.deposited).toFixed(4)} ETH
+              {formatETH(userStats.deposited)} ETH
             </span>
           </div>
           <div className="flex justify-between items-center mt-2">
