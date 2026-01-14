@@ -7,6 +7,7 @@ import { useCopyToClipboard } from '../hooks/useUtils';
 import { formatETH } from '../utils/helpers';
 import { REFERRAL } from '../utils/constants';
 import { Tooltip } from './Tooltip';
+import { Spinner } from './LoadingSkeleton';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 
@@ -68,7 +69,14 @@ export function RewardsCard() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {isLoading ? 'Claiming...' : 'Claim Rewards'}
+              {isLoading ? (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <Spinner size="sm" className="text-black" />
+                  Claiming...
+                </span>
+              ) : (
+                'Claim Rewards'
+              )}
             </motion.button>
           ) : (
             <ConnectButton.Custom>
