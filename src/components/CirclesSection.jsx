@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { CIRCLES } from '../utils/constants';
 import { formatNumber } from '../utils/helpers';
 import { InfoTooltip } from './Tooltip';
+import { Spinner } from './LoadingSkeleton';
 
 export function CirclesSection() {
   const [showCreate, setShowCreate] = useState(false);
@@ -148,7 +149,14 @@ export function CirclesSection() {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
             >
-              {isLoading ? 'Creating...' : 'Create Circle'}
+              {isLoading ? (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <Spinner size="sm" />
+                  Creating...
+                </span>
+              ) : (
+                'Create Circle'
+              )}
             </motion.button>
           </motion.form>
         )}
