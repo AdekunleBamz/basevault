@@ -6,6 +6,7 @@ import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { CIRCLES } from '../utils/constants';
+import { formatNumber } from '../utils/helpers';
 
 export function CirclesSection() {
   const [showCreate, setShowCreate] = useState(false);
@@ -153,7 +154,7 @@ export function CirclesSection() {
       <div className="p-6 rounded-2xl bg-base-card border border-base-border">
         <div className="text-center">
           <div className="text-4xl font-bold gradient-text mb-2">
-            {protocolStats?.totalCircles || '0'}
+            {formatNumber(protocolStats?.totalCircles || 0)}
           </div>
           <div className="text-gray-400">Active Circles</div>
         </div>
