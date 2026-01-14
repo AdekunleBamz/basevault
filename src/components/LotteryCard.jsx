@@ -5,7 +5,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
-import { formatCountdown, padNumber, calculatePercent, formatETH } from '../utils/helpers';
+import { formatCountdown, padNumber, calculatePercent, formatETH, formatNumber } from '../utils/helpers';
 import { InfoTooltip } from './Tooltip';
 import { Spinner } from './LoadingSkeleton';
 
@@ -105,6 +105,10 @@ export function LotteryCard() {
                 animate={{ width: `${Math.min(parseFloat(winChance), 100)}%` }}
                 transition={{ duration: 1 }}
               />
+            </div>
+            <div className="mt-3 flex justify-between text-xs text-gray-400">
+              <span>Your Tickets: {formatNumber(userTickets)}</span>
+              <span>Total Tickets: {formatNumber(totalTickets)}</span>
             </div>
           </div>
         )}
