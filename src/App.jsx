@@ -17,6 +17,7 @@ import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
 import { useCopyToClipboard } from './hooks/useUtils';
 import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS, REFRESH_INTERVALS, SOCIAL_LINKS, SUPPORTED_CHAIN_NAME } from './utils/constants';
+import { isValidAddress } from './utils/helpers';
 
 function AppContent() {
   const { address } = useAccount();
@@ -56,7 +57,7 @@ function AppContent() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const ref = params.get('ref');
-    if (ref) {
+    if (ref && isValidAddress(ref)) {
       localStorage.setItem(STORAGE_KEYS.REFERRER, ref);
     }
   }, []);
