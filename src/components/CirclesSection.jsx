@@ -7,6 +7,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { CIRCLES } from '../utils/constants';
 import { formatNumber } from '../utils/helpers';
+import { InfoTooltip } from './Tooltip';
 
 export function CirclesSection() {
   const [showCreate, setShowCreate] = useState(false);
@@ -126,7 +127,10 @@ export function CirclesSection() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Max Members</label>
+                <label className="block text-sm text-gray-400 mb-2 flex items-center gap-2">
+                  Max Members
+                  <InfoTooltip content="Limits the number of people who can join the circle" />
+                </label>
                 <input
                   type="number"
                   min={CIRCLES.MIN_MEMBERS}
