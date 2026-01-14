@@ -189,3 +189,22 @@ export function useIsMobile() {
 export function useIsTablet() {
   return useMediaQuery('(min-width: 769px) and (max-width: 1024px)');
 }
+
+/**
+ * Custom hook for declarative intervals
+ * @param {function} callback - The function to run
+ * @param {number|null} delay - Interval delay in ms, or null to pause
+ */
+export function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    if (delay === null) return;
+    const id = setInterval(() => savedCallback.current?.(), delay);
+    return () => clearInterval(id);
+  }, [delay]);
+}
