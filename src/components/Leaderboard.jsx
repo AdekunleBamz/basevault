@@ -46,7 +46,7 @@ export function Leaderboard() {
                 {index < 3 ? medals[index] : `#${index + 1}`}
               </div>
               <div className="flex-1 font-mono text-sm">
-                {formatAddress(entry.address)}
+                <span title={entry.address}>{formatAddress(entry.address)}</span>
                 {entry.address.toLowerCase() === address?.toLowerCase() && (
                   <span className="ml-2 text-base-accent">(You)</span>
                 )}
