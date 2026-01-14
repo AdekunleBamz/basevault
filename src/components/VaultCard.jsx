@@ -5,6 +5,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
+import { getTxUrl } from '../utils/helpers';
 
 export function VaultCard() {
   const [amount, setAmount] = useState('');
@@ -41,7 +42,7 @@ export function VaultCard() {
         <div>
           <div className="font-bold">{isDeposit ? 'Deposit' : 'Withdrawal'} successful!</div>
           <a 
-            href={`https://basescan.org/tx/${result.hash}`}
+            href={getTxUrl(result.hash)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-base-blue hover:underline"

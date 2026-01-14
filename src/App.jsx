@@ -15,6 +15,7 @@ import { CirclesSection } from './components/CirclesSection';
 import { TransactionHistory } from './components/TransactionHistory';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
+import { TOAST_CONFIG, BASESCAN_ADDRESS_URL } from './utils/constants';
 
 function AppContent() {
   const { address } = useAccount();
@@ -60,14 +61,8 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-animated">
       <Toaster 
-        position="top-right"
-        toastOptions={{
-          style: {
-            background: '#111214',
-            color: '#fff',
-            border: '1px solid #1E2025',
-          },
-        }}
+        position={TOAST_CONFIG.position}
+        toastOptions={TOAST_CONFIG}
       />
       
       <Header />
@@ -171,7 +166,7 @@ function AppContent() {
           <p>BaseVault Protocol • Built on Base Chain</p>
           <p className="mt-1">
             <a 
-              href={`https://basescan.org/address/${import.meta.env.VITE_CONTRACT_ADDRESS}`}
+              href={`${BASESCAN_ADDRESS_URL}/${import.meta.env.VITE_CONTRACT_ADDRESS}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-base-blue hover:underline"
