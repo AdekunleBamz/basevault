@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useStore } from '../stores/useStore';
 import { formatETH, formatNumber } from '../utils/helpers';
 import { StatsSkeleton } from './LoadingSkeleton';
+import { InfoTooltip } from './Tooltip';
 
 export function Stats() {
   const { protocolStats } = useStore();
@@ -16,24 +17,28 @@ export function Stats() {
       value: protocolStats ? `${formatETH(protocolStats.totalDeposits)} ETH` : '-.--',
       icon: '🔒',
       color: 'from-base-blue to-blue-400',
+      description: 'Total ETH deposited into the protocol',
     },
     {
       label: 'Current Prize Pool',
       value: protocolStats ? `${formatETH(protocolStats.currentPrizePool)} ETH` : '-.--',
       icon: '🎰',
       color: 'from-base-accent to-green-400',
+      description: 'Total prize available for the current lottery round',
     },
     {
       label: 'Total Users',
       value: protocolStats ? formatNumber(protocolStats.totalUsers) : '-',
       icon: '👥',
       color: 'from-purple-500 to-pink-500',
+      description: 'Unique wallets that have deposited',
     },
     {
       label: 'Prizes Distributed',
       value: protocolStats ? `${formatETH(protocolStats.totalPrizesDistributed)} ETH` : '-.--',
       icon: '🏆',
       color: 'from-base-warning to-orange-400',
+      description: 'Total ETH paid out to winners',
     },
   ];
 
@@ -53,7 +58,10 @@ export function Stats() {
           
           <div className="relative">
             <div className="text-2xl mb-2">{stat.icon}</div>
-            <div className="text-sm text-gray-400 mb-1">{stat.label}</div>
+            <div className="text-sm text-gray-400 mb-1 flex items-center gap-2">
+              {stat.label}
+              <InfoTooltip content={stat.description} />
+            </div>
             <div className="text-xl font-bold font-mono">{stat.value}</div>
           </div>
         </motion.div>
