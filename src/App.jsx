@@ -196,13 +196,13 @@ function AppContent() {
             </div>
           )}
           <div className="mt-3 flex items-center justify-center gap-4 text-xs">
-            <a href={SOCIAL_LINKS.DOCS} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+            <a href={SOCIAL_LINKS.DOCS} target="_blank" rel="noopener noreferrer" aria-label="BaseVault documentation" className="hover:text-white">
               Docs
             </a>
-            <a href={SOCIAL_LINKS.TWITTER} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+            <a href={SOCIAL_LINKS.TWITTER} target="_blank" rel="noopener noreferrer" aria-label="BaseVault Twitter" className="hover:text-white">
               Twitter
             </a>
-            <a href={SOCIAL_LINKS.DISCORD} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+            <a href={SOCIAL_LINKS.DISCORD} target="_blank" rel="noopener noreferrer" aria-label="BaseVault Discord" className="hover:text-white">
               Discord
             </a>
           </div>
