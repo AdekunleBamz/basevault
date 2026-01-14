@@ -13,6 +13,7 @@ import { Leaderboard } from './components/Leaderboard';
 import { RewardsCard } from './components/RewardsCard';
 import { CirclesSection } from './components/CirclesSection';
 import { TransactionHistory } from './components/TransactionHistory';
+import { BackToTop } from './components/BackToTop';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
 import { useCopyToClipboard, useInterval } from './hooks/useUtils';
@@ -207,6 +208,7 @@ function AppContent() {
           </div>
         </motion.footer>
       </main>
+      <BackToTop />
     </div>
   );
 }
