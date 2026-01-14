@@ -30,14 +30,14 @@ function AppContent() {
     fetchProtocolStats();
     fetchCurrentRound();
     fetchLeaderboard();
-  }, []);
+  }, [fetchProtocolStats, fetchCurrentRound, fetchLeaderboard]);
 
   // Fetch user data when address changes
   useEffect(() => {
     if (address) {
       fetchUserStats(address);
     }
-  }, [address]);
+  }, [address, fetchUserStats]);
 
   // Auto-refresh every 30 seconds
   useEffect(() => {
@@ -50,7 +50,7 @@ function AppContent() {
       }
     }, REFRESH_INTERVALS.PROTOCOL_STATS);
     return () => clearInterval(interval);
-  }, [address]);
+  }, [address, fetchProtocolStats, fetchCurrentRound, fetchLeaderboard, fetchUserStats]);
 
   // Check for referral in URL
   useEffect(() => {
