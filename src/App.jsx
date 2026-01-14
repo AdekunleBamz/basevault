@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAccount } from 'wagmi';
 import { Web3Provider } from './components/Web3Provider';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
 import { Stats } from './components/Stats';
@@ -182,9 +183,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Web3Provider>
-      <AppContent />
-    </Web3Provider>
+    <ErrorBoundary>
+      <Web3Provider>
+        <AppContent />
+      </Web3Provider>
+    </ErrorBoundary>
   );
 }
 
