@@ -3,12 +3,13 @@ import { useAccount } from 'wagmi';
 import { useStore } from '../stores/useStore';
 import { formatAddress } from '../utils/helpers';
 import { EmptyState } from './EmptyState';
+import { LEADERBOARD } from '../utils/constants';
 
 export function Leaderboard() {
   const { leaderboard } = useStore();
   const { address } = useAccount();
 
-  const medals = ['🥇', '🥈', '🥉'];
+  const medals = LEADERBOARD.MEDALS;
 
   return (
     <motion.div 
