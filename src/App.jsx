@@ -16,7 +16,7 @@ import { TransactionHistory } from './components/TransactionHistory';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
 import { useCopyToClipboard } from './hooks/useUtils';
-import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS } from './utils/constants';
+import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS, REFRESH_INTERVALS } from './utils/constants';
 
 function AppContent() {
   const { address } = useAccount();
@@ -48,7 +48,7 @@ function AppContent() {
       if (address) {
         fetchUserStats(address);
       }
-    }, 30000);
+    }, REFRESH_INTERVALS.PROTOCOL_STATS);
     return () => clearInterval(interval);
   }, [address]);
 
