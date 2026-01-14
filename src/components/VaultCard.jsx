@@ -162,6 +162,7 @@ export function VaultCard() {
               <button
                 type="button"
                 onClick={setMaxAmount}
+                aria-label="Set maximum amount"
                 className="text-xs text-base-blue hover:text-base-accent transition-colors"
               >
                 MAX
