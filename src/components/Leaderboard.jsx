@@ -1,15 +1,11 @@
 import { motion } from 'framer-motion';
 import { useAccount } from 'wagmi';
 import { useStore } from '../stores/useStore';
+import { formatAddress } from '../utils/helpers';
 
 export function Leaderboard() {
   const { leaderboard } = useStore();
   const { address } = useAccount();
-
-  const formatAddress = (addr) => {
-    if (!addr) return '';
-    return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
-  };
 
   const medals = ['🥇', '🥈', '🥉'];
 
