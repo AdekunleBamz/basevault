@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useAccount } from 'wagmi';
 import { useStore } from '../stores/useStore';
 import { formatAddress } from '../utils/helpers';
+import { EmptyState } from './EmptyState';
 
 export function Leaderboard() {
   const { leaderboard } = useStore();
@@ -22,9 +23,11 @@ export function Leaderboard() {
 
       <div className="space-y-2">
         {leaderboard.length === 0 ? (
-          <div className="text-center py-8 text-gray-400">
-            No depositors yet. Be the first!
-          </div>
+          <EmptyState
+            icon="🏁"
+            title="No depositors yet"
+            description="Be the first to deposit and top the leaderboard."
+          />
         ) : (
           leaderboard.slice(0, 10).map((entry, index) => (
             <motion.div
