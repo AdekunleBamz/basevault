@@ -6,6 +6,7 @@ import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { getTxUrl } from '../utils/helpers';
+import { QUICK_AMOUNTS, GAS_BUFFER } from '../utils/constants';
 
 export function VaultCard() {
   const [amount, setAmount] = useState('');
@@ -57,12 +58,12 @@ export function VaultCard() {
     }
   };
 
-  const quickAmounts = ['0.01', '0.05', '0.1', '0.5'];
+  const quickAmounts = QUICK_AMOUNTS;
 
   const setMaxAmount = () => {
     if (isDeposit && balanceData) {
       // Leave some for gas
-      const max = Math.max(0, parseFloat(balanceData.formatted) - 0.001);
+      const max = Math.max(0, parseFloat(balanceData.formatted) - GAS_BUFFER);
       setAmount(max.toFixed(4));
     } else if (!isDeposit && userStats) {
       setAmount(userStats.deposited);
