@@ -5,7 +5,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
-import { formatCountdown, padNumber, calculatePercent } from '../utils/helpers';
+import { formatCountdown, padNumber, calculatePercent, formatETH } from '../utils/helpers';
 
 export function LotteryCard() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -67,7 +67,7 @@ export function LotteryCard() {
         <div className="text-center py-6">
           <div className="text-sm text-gray-400 mb-1">Current Prize Pool</div>
           <div className="text-4xl font-bold font-mono gradient-text">
-            {currentRound ? parseFloat(currentRound.prizePool).toFixed(4) : '-.----'} ETH
+            {currentRound ? formatETH(currentRound.prizePool) : '-.----'} ETH
           </div>
         </div>
 
