@@ -5,6 +5,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
+import { formatCountdown, padNumber, calculatePercent } from '../utils/helpers';
 
 export function LotteryCard() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -20,16 +21,7 @@ export function LotteryCard() {
       const end = new Date(currentRound.endTime);
       const diff = end - now;
 
-      if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      } else {
-        setTimeLeft({
-          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((diff % (1000 * 60)) / 1000),
-        });
-      }
+      setTimeLeft(formatCountdown(diff));
     }, 1000);
 
     return () => clearInterval(timer);
@@ -47,8 +39,10 @@ export function LotteryCard() {
   const isEnded = timeLeft.days === 0 && timeLeft.hours === 0 && 
                   timeLeft.minutes === 0 && timeLeft.seconds === 0;
 
-  const winChance = userStats && currentRound && parseInt(currentRound.totalTickets) > 0
-    ? ((parseInt(userStats.tickets) / parseInt(currentRound.totalTickets)) * 100).toFixed(2)
+  const totalTickets = currentRound ? parseInt(currentRound.totalTickets) : 0;
+  const userTickets = userStats ? parseInt(userStats.tickets) : 0;
+  const winChance = totalTickets > 0
+    ? calculatePercent(userTickets, totalTickets).toFixed(2)
     : '0.00';
 
   return (
@@ -86,7 +80,7 @@ export function LotteryCard() {
             { label: 'Seconds', value: timeLeft.seconds },
           ].map((item) => (
             <div key={item.label} className="text-center p-3 rounded-xl bg-base-dark">
-              <div className="text-2xl font-bold font-mono">{String(item.value).padStart(2, '0')}</div>
+              <div className="text-2xl font-bold font-mono">{padNumber(item.value, 2)}</div>
               <div className="text-xs text-gray-400">{item.label}</div>
             </div>
           ))}
