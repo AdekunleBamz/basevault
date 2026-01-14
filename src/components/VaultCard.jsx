@@ -7,6 +7,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { getTxUrl, formatETH, formatNumber } from '../utils/helpers';
 import { QUICK_AMOUNTS, GAS_BUFFER, LOTTERY, LIMITS } from '../utils/constants';
+import { Tooltip } from './Tooltip';
 
 export function VaultCard() {
   const [amount, setAmount] = useState('');
@@ -150,13 +151,15 @@ export function VaultCard() {
         <div className="mb-4">
           <div className="flex justify-between items-center mb-2">
             <label htmlFor="vault-amount" className="text-sm text-gray-400">Amount (ETH)</label>
-            <button
-              type="button"
-              onClick={setMaxAmount}
-              className="text-xs text-base-blue hover:text-base-accent transition-colors"
-            >
-              MAX
-            </button>
+            <Tooltip content={`Leaves ${GAS_BUFFER} ETH for gas`} position="left">
+              <button
+                type="button"
+                onClick={setMaxAmount}
+                className="text-xs text-base-blue hover:text-base-accent transition-colors"
+              >
+                MAX
+              </button>
+            </Tooltip>
           </div>
           <div className="relative">
             <input
