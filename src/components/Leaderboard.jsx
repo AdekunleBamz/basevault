@@ -30,7 +30,7 @@ export function Leaderboard() {
             description="Be the first to deposit and top the leaderboard."
           />
         ) : (
-          leaderboard.slice(0, 10).map((entry, index) => (
+          leaderboard.slice(0, LEADERBOARD.MAX_DISPLAY).map((entry, index) => (
             <motion.div
               key={entry.address}
               className={`flex items-center gap-3 p-3 rounded-xl ${
