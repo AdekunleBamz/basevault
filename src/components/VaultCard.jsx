@@ -7,7 +7,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { getTxUrl, formatETH, formatNumber } from '../utils/helpers';
 import { QUICK_AMOUNTS, GAS_BUFFER, LOTTERY, LIMITS } from '../utils/constants';
-import { Tooltip } from './Tooltip';
+import { Tooltip, InfoTooltip } from './Tooltip';
 
 export function VaultCard() {
   const [amount, setAmount] = useState('');
@@ -205,7 +205,10 @@ export function VaultCard() {
               className="mb-4 overflow-hidden"
             >
               <label className="block text-sm text-gray-400 mb-2">
-                Referrer Address (optional)
+                <span className="inline-flex items-center gap-2">
+                  Referrer Address (optional)
+                  <InfoTooltip content="Earn referral rewards when users deposit with your address" />
+                </span>
               </label>
               <input
                 type="text"
