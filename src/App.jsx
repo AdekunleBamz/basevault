@@ -14,6 +14,7 @@ import { RewardsCard } from './components/RewardsCard';
 import { CirclesSection } from './components/CirclesSection';
 import { TransactionHistory } from './components/TransactionHistory';
 import { BackToTop } from './components/BackToTop';
+import { ConfigBanner } from './components/ConfigBanner';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
 import { useCopyToClipboard, useInterval } from './hooks/useUtils';
@@ -26,6 +27,7 @@ function AppContent() {
   const { activeTab } = useStore();
   const { copy, hasCopied } = useCopyToClipboard();
   const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
+  const isContractAddressValid = isValidAddress(contractAddress);
 
   // Fetch data on mount
   useEffect(() => {
@@ -82,6 +84,12 @@ function AppContent() {
       </div>
 
       <main id="main-content" className="relative pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        {!isContractAddressValid && (
+          <ConfigBanner
+            title="Contract address is not configured"
+            description="Set VITE_CONTRACT_ADDRESS in your environment to enable on-chain reads and writes."
+          />
+        )}
         {/* Hero Section */}
         <motion.div 
           className="text-center mb-12"
