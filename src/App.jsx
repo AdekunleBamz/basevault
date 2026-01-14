@@ -15,7 +15,7 @@ import { CirclesSection } from './components/CirclesSection';
 import { TransactionHistory } from './components/TransactionHistory';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
-import { useCopyToClipboard } from './hooks/useUtils';
+import { useCopyToClipboard, useInterval } from './hooks/useUtils';
 import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS, REFRESH_INTERVALS, SOCIAL_LINKS, SUPPORTED_CHAIN_NAME } from './utils/constants';
 import { isValidAddress } from './utils/helpers';
 
@@ -40,18 +40,15 @@ function AppContent() {
     }
   }, [address, fetchUserStats]);
 
-  // Auto-refresh every 30 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchProtocolStats();
-      fetchCurrentRound();
-      fetchLeaderboard();
-      if (address) {
-        fetchUserStats(address);
-      }
-    }, REFRESH_INTERVALS.PROTOCOL_STATS);
-    return () => clearInterval(interval);
-  }, [address, fetchProtocolStats, fetchCurrentRound, fetchLeaderboard, fetchUserStats]);
+  // Auto-refresh
+  useInterval(() => {
+    fetchProtocolStats();
+    fetchCurrentRound();
+    fetchLeaderboard();
+    if (address) {
+      fetchUserStats(address);
+    }
+  }, REFRESH_INTERVALS.PROTOCOL_STATS);
 
   // Check for referral in URL
   useEffect(() => {
