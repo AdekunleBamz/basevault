@@ -177,6 +177,7 @@ function AppContent() {
               href={`${BASESCAN_ADDRESS_URL}/${contractAddress}`}
               target="_blank"
               rel="noopener noreferrer"
+              title="View contract on BaseScan"
               className="text-base-blue hover:underline"
             >
               View Contract on BaseScan →
