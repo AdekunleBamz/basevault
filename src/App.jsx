@@ -188,6 +188,8 @@ function AppContent() {
               <button
                 type="button"
                 onClick={() => copy(contractAddress)}
+                aria-label="Copy contract address"
+                title={contractAddress}
                 className="text-xs text-gray-400 hover:text-white transition-colors"
               >
                 {hasCopied ? 'Copied contract address' : 'Copy contract address'}
