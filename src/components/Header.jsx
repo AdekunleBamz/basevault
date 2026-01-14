@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useBalance } from 'wagmi';
 import { useStore } from '../stores/useStore';
+import { NAV_TABS } from '../utils/constants';
 
 export function Header() {
   const { address, isConnected } = useAccount();
@@ -18,13 +19,6 @@ export function Header() {
     if (!balance) return '0.0000';
     return parseFloat(balance.formatted).toFixed(4);
   };
-
-  const tabs = [
-    { id: 'vault', label: 'Vault', icon: '🔐' },
-    { id: 'lottery', label: 'Lottery', icon: '🎰' },
-    { id: 'circles', label: 'Circles', icon: '👥' },
-    { id: 'rewards', label: 'Rewards', icon: '🎁' },
-  ];
 
   const handleSelectTab = (tabId) => {
     setActiveTab(tabId);
@@ -217,7 +211,7 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
           >
             <div className="grid grid-cols-2 gap-2">
-              {tabs.map((tab) => (
+              {NAV_TABS.map((tab) => (
                 <button
                   key={tab.id}
                   type="button"
