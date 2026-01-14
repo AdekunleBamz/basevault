@@ -1,9 +1,14 @@
 import { motion } from 'framer-motion';
 import { useStore } from '../stores/useStore';
 import { formatETH, formatNumber } from '../utils/helpers';
+import { StatsSkeleton } from './LoadingSkeleton';
 
 export function Stats() {
   const { protocolStats } = useStore();
+
+  if (!protocolStats) {
+    return <StatsSkeleton />;
+  }
 
   const stats = [
     {
