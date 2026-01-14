@@ -113,6 +113,8 @@ export function RewardsCard() {
             />
             <motion.button
               onClick={copyReferralLink}
+              aria-label="Copy referral link"
+              title={referralLink}
               className="px-4 py-2 rounded-lg bg-base-blue font-semibold"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
