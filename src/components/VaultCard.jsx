@@ -6,7 +6,7 @@ import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { getTxUrl } from '../utils/helpers';
-import { QUICK_AMOUNTS, GAS_BUFFER } from '../utils/constants';
+import { QUICK_AMOUNTS, GAS_BUFFER, LOTTERY } from '../utils/constants';
 
 export function VaultCard() {
   const [amount, setAmount] = useState('');
@@ -257,7 +257,7 @@ export function VaultCard() {
       {isDeposit && (
         <div className="mt-4 p-3 rounded-lg bg-base-blue/10 border border-base-blue/20">
           <p className="text-sm text-gray-300">
-            <span className="text-base-accent font-semibold">10,000 tickets</span> per ETH deposited. 
+            <span className="text-base-accent font-semibold">{LOTTERY.TICKETS_PER_ETH.toLocaleString()} tickets</span> per ETH deposited. 
             More tickets = higher chance to win the weekly lottery!
           </p>
         </div>

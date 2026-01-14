@@ -74,7 +74,7 @@ export const LIMITS = {
 // Lottery constants
 export const LOTTERY = {
   ROUND_DURATION_DAYS: 7,
-  TICKETS_PER_ETH: 1000,
+  TICKETS_PER_ETH: 10000,
 };
 
 // Circle constants
