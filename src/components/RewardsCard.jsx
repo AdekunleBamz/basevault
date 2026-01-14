@@ -4,7 +4,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ACHIEVEMENTS } from '../utils/wagmiConfig';
 import { useCopyToClipboard } from '../hooks/useUtils';
-import { formatETH } from '../utils/helpers';
+import { formatETH, formatNumber } from '../utils/helpers';
 import { REFERRAL } from '../utils/constants';
 import { Tooltip } from './Tooltip';
 import { Spinner } from './LoadingSkeleton';
@@ -105,6 +105,10 @@ export function RewardsCard() {
           <div className="p-3 rounded-xl bg-base-dark">
             <div className="text-xs text-gray-400">Referral Earnings</div>
             <div className="font-bold font-mono">{formatETH(userStats.referralEarnings)} ETH</div>
+          </div>
+          <div className="p-3 rounded-xl bg-base-dark">
+            <div className="text-xs text-gray-400">Referral Count</div>
+            <div className="font-bold font-mono">{formatNumber(userStats.referralCount)}</div>
           </div>
         </div>
       )}
