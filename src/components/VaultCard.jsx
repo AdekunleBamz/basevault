@@ -5,7 +5,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
-import { getTxUrl, formatETH, formatNumber } from '../utils/helpers';
+import { getTxUrl, formatETH, formatNumber, isValidAddress } from '../utils/helpers';
 import { QUICK_AMOUNTS, GAS_BUFFER, LOTTERY, LIMITS } from '../utils/constants';
 import { Tooltip, InfoTooltip } from './Tooltip';
 import { Spinner } from './LoadingSkeleton';
@@ -28,6 +28,12 @@ export function VaultCard() {
       return;
     }
 
+    const normalizedReferrer = referrer.trim();
+    if (isDeposit && normalizedReferrer && !isValidAddress(normalizedReferrer)) {
+      toast.error('Invalid referrer address');
+      return;
+    }
+
     // Check if user has enough balance for deposit
     if (isDeposit && balanceData) {
       if (parseFloat(amount) > parseFloat(balanceData.formatted)) {
@@ -37,7 +43,7 @@ export function VaultCard() {
     }
 
     const result = isDeposit 
-      ? await deposit(amount, referrer || undefined)
+      ? await deposit(amount, normalizedReferrer || undefined)
       : await withdraw(amount);
 
     if (result.success) {
