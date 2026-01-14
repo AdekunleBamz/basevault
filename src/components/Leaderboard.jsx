@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useAccount } from 'wagmi';
 import { useStore } from '../stores/useStore';
-import { formatAddress } from '../utils/helpers';
+import { formatAddress, formatETH } from '../utils/helpers';
 import { EmptyState } from './EmptyState';
 import { LEADERBOARD } from '../utils/constants';
 
@@ -52,7 +52,7 @@ export function Leaderboard() {
                 )}
               </div>
               <div className="font-bold font-mono">
-                {parseFloat(entry.deposited).toFixed(4)} ETH
+                {formatETH(entry.deposited)} ETH
               </div>
             </motion.div>
           ))
