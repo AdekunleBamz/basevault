@@ -5,6 +5,7 @@ import { useStore } from '../stores/useStore';
 import { ACHIEVEMENTS } from '../utils/wagmiConfig';
 import { useCopyToClipboard } from '../hooks/useUtils';
 import { formatETH } from '../utils/helpers';
+import { REFERRAL } from '../utils/constants';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 
@@ -120,7 +121,7 @@ export function RewardsCard() {
             </motion.button>
           </div>
           <p className="text-xs text-gray-400 mt-1">
-            Earn 0.5% on every deposit from your referrals!
+            Earn {REFERRAL.BONUS_PERCENT}% on every deposit from your referrals!
           </p>
         </div>
       )}
