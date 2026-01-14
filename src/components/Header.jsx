@@ -1,11 +1,13 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useBalance } from 'wagmi';
 import { useStore } from '../stores/useStore';
 
 export function Header() {
   const { address, isConnected } = useAccount();
-  const { userStats } = useStore();
+  const { userStats, activeTab, setActiveTab } = useStore();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   // Fetch ETH balance
   const { data: balanceData } = useBalance({
@@ -15,6 +17,18 @@ export function Header() {
   const formatBalance = (balance) => {
     if (!balance) return '0.0000';
     return parseFloat(balance.formatted).toFixed(4);
+  };
+
+  const tabs = [
+    { id: 'vault', label: 'Vault', icon: '🔐' },
+    { id: 'lottery', label: 'Lottery', icon: '🎰' },
+    { id: 'circles', label: 'Circles', icon: '👥' },
+    { id: 'rewards', label: 'Rewards', icon: '🎁' },
+  ];
+
+  const handleSelectTab = (tabId) => {
+    setActiveTab(tabId);
+    setIsMenuOpen(false);
   };
 
   return (
@@ -37,6 +51,19 @@ export function Header() {
 
           {/* Right side - Balance & Connect */}
           <div className="flex items-center gap-3">
+            {/* Mobile menu button */}
+            <motion.button
+              type="button"
+              aria-label="Open navigation menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              className="sm:hidden w-10 h-10 rounded-xl bg-base-card border border-base-border flex items-center justify-center"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span className="text-xl">☰</span>
+            </motion.button>
             {/* ETH Balance Display */}
             {isConnected && balanceData && (
               <motion.div 
@@ -178,6 +205,38 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            id="mobile-nav"
+            className="sm:hidden border-t border-base-border px-4 py-4 bg-base-card/70 backdrop-blur"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+          >
+            <div className="grid grid-cols-2 gap-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => handleSelectTab(tab.id)}
+                  aria-current={activeTab === tab.id ? 'page' : undefined}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-base-blue/60 ${
+                    activeTab === tab.id
+                      ? 'bg-gradient-to-r from-base-blue to-base-accent text-white'
+                      : 'bg-base-dark text-gray-300'
+                  }`}
+                >
+                  <span>{tab.icon}</span>
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Mobile Balance Bar */}
       {isConnected && balanceData && (
