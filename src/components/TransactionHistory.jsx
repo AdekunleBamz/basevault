@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAccount } from 'wagmi';
 import { useLocalStorage } from '../hooks/useUtils';
 import { formatAddress, formatETH, formatRelativeTime, getTxUrl } from '../utils/helpers';
+import { STORAGE_KEYS } from '../utils/constants';
 
 /**
  * Transaction History Component
@@ -10,7 +11,7 @@ import { formatAddress, formatETH, formatRelativeTime, getTxUrl } from '../utils
  */
 export function TransactionHistory({ maxItems = 5 }) {
   const { address } = useAccount();
-  const [transactions, setTransactions] = useLocalStorage('basevault_transactions', []);
+  const [transactions] = useLocalStorage(STORAGE_KEYS.RECENT_TRANSACTIONS, []);
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Filter transactions for current user
@@ -125,7 +126,7 @@ export function TransactionHistory({ maxItems = 5 }) {
  * Call this after successful transactions
  */
 export function addTransaction(type, hash, amount, address) {
-  const storageKey = 'basevault_transactions';
+  const storageKey = STORAGE_KEYS.RECENT_TRANSACTIONS;
   const existing = JSON.parse(localStorage.getItem(storageKey) || '[]');
   
   const newTx = {
