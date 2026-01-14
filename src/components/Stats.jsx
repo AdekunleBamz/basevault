@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useStore } from '../stores/useStore';
+import { formatETH, formatNumber } from '../utils/helpers';
 
 export function Stats() {
   const { protocolStats } = useStore();
@@ -7,25 +8,25 @@ export function Stats() {
   const stats = [
     {
       label: 'Total Value Locked',
-      value: protocolStats ? `${parseFloat(protocolStats.totalDeposits).toFixed(4)} ETH` : '-.--',
+      value: protocolStats ? `${formatETH(protocolStats.totalDeposits)} ETH` : '-.--',
       icon: '🔒',
       color: 'from-base-blue to-blue-400',
     },
     {
       label: 'Current Prize Pool',
-      value: protocolStats ? `${parseFloat(protocolStats.currentPrizePool).toFixed(4)} ETH` : '-.--',
+      value: protocolStats ? `${formatETH(protocolStats.currentPrizePool)} ETH` : '-.--',
       icon: '🎰',
       color: 'from-base-accent to-green-400',
     },
     {
       label: 'Total Users',
-      value: protocolStats ? parseInt(protocolStats.totalUsers).toLocaleString() : '-',
+      value: protocolStats ? formatNumber(protocolStats.totalUsers) : '-',
       icon: '👥',
       color: 'from-purple-500 to-pink-500',
     },
     {
       label: 'Prizes Distributed',
-      value: protocolStats ? `${parseFloat(protocolStats.totalPrizesDistributed).toFixed(4)} ETH` : '-.--',
+      value: protocolStats ? `${formatETH(protocolStats.totalPrizesDistributed)} ETH` : '-.--',
       icon: '🏆',
       color: 'from-base-warning to-orange-400',
     },
