@@ -63,6 +63,12 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-animated">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-base-card focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
+      >
+        Skip to content
+      </a>
       <Toaster 
         position={TOAST_CONFIG.position}
         toastOptions={TOAST_CONFIG}
@@ -76,7 +82,7 @@ function AppContent() {
         <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-base-accent/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
       </div>
 
-      <main className="relative pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <main id="main-content" className="relative pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Hero Section */}
         <motion.div 
           className="text-center mb-12"
