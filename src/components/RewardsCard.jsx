@@ -6,6 +6,7 @@ import { ACHIEVEMENTS } from '../utils/wagmiConfig';
 import { useCopyToClipboard } from '../hooks/useUtils';
 import { formatETH } from '../utils/helpers';
 import { REFERRAL } from '../utils/constants';
+import { Tooltip } from './Tooltip';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 
@@ -135,19 +136,19 @@ export function RewardsCard() {
           {ACHIEVEMENTS.map((achievement) => {
             const isUnlocked = unlockedAchievements.find(a => a.id === achievement.id);
             return (
-              <motion.div
-                key={achievement.id}
-                className={`px-3 py-2 rounded-lg ${
-                  isUnlocked 
-                    ? 'bg-base-accent/20 border border-base-accent/30' 
-                    : 'bg-base-dark opacity-50'
-                }`}
-                title={achievement.description}
-                whileHover={{ scale: 1.05 }}
-              >
-                <span className="mr-1">{achievement.icon}</span>
-                <span className="text-sm">{achievement.name}</span>
-              </motion.div>
+              <Tooltip key={achievement.id} content={achievement.description} position="top">
+                <motion.div
+                  className={`px-3 py-2 rounded-lg ${
+                    isUnlocked 
+                      ? 'bg-base-accent/20 border border-base-accent/30' 
+                      : 'bg-base-dark opacity-50'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <span className="mr-1">{achievement.icon}</span>
+                  <span className="text-sm">{achievement.name}</span>
+                </motion.div>
+              </Tooltip>
             );
           })}
         </div>
