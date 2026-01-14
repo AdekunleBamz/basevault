@@ -4,6 +4,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useBalance } from 'wagmi';
 import { useStore } from '../stores/useStore';
 import { NAV_TABS } from '../utils/constants';
+import { formatETH } from '../utils/helpers';
 
 export function Header() {
   const { address, isConnected } = useAccount();
@@ -15,10 +16,6 @@ export function Header() {
     address: address,
   });
 
-  const formatBalance = (balance) => {
-    if (!balance) return '0.0000';
-    return parseFloat(balance.formatted).toFixed(4);
-  };
 
   const handleSelectTab = (tabId) => {
     setActiveTab(tabId);
@@ -72,7 +69,7 @@ export function Header() {
                   <div>
                     <div className="text-xs text-gray-400">Balance</div>
                     <div className="font-mono font-bold text-sm">
-                      {formatBalance(balanceData)} ETH
+                      {formatETH(balanceData?.formatted)} ETH
                     </div>
                   </div>
                 </div>
@@ -241,7 +238,7 @@ export function Header() {
         >
           <div className="flex items-center gap-2">
             <span className="text-gray-400 text-sm">Balance:</span>
-            <span className="font-mono font-bold text-sm">{formatBalance(balanceData)} ETH</span>
+            <span className="font-mono font-bold text-sm">{formatETH(balanceData?.formatted)} ETH</span>
           </div>
           {userStats && (
             <div className="flex items-center gap-2">
