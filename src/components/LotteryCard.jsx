@@ -6,6 +6,7 @@ import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { formatCountdown, padNumber, calculatePercent, formatETH } from '../utils/helpers';
+import { InfoTooltip } from './Tooltip';
 
 export function LotteryCard() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -90,7 +91,10 @@ export function LotteryCard() {
         {userStats && (
           <div className="p-4 rounded-xl bg-base-dark mb-4">
             <div className="flex justify-between items-center">
-              <span className="text-gray-400">Your Win Chance</span>
+              <span className="text-gray-400 flex items-center gap-2">
+                Your Win Chance
+                <InfoTooltip content="Estimated based on your tickets vs total tickets" />
+              </span>
               <span className="font-bold text-base-accent">{winChance}%</span>
             </div>
             <div className="mt-2 h-2 rounded-full bg-base-border overflow-hidden">
