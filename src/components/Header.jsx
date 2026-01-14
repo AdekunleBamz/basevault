@@ -6,12 +6,14 @@ import { useStore } from '../stores/useStore';
 import { NAV_TABS } from '../utils/constants';
 import { formatETH, formatNumber } from '../utils/helpers';
 import { useOnClickOutside } from '../hooks/useUtils';
+import { useCopyToClipboard } from '../hooks/useUtils';
 
 export function Header() {
   const { address, isConnected } = useAccount();
   const { userStats, activeTab, setActiveTab } = useStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const { copy, hasCopied } = useCopyToClipboard();
   
   // Fetch ETH balance
   const { data: balanceData } = useBalance({
@@ -201,6 +203,19 @@ export function Header() {
                               {account.displayName}
                             </span>
                           </motion.button>
+                          {account?.address && (
+                            <motion.button
+                              type="button"
+                              onClick={() => copy(account.address)}
+                              aria-label="Copy wallet address"
+                              title={account.address}
+                              className="px-3 py-2.5 rounded-xl bg-base-card border border-base-border text-xs hover:border-base-blue transition-colors"
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              {hasCopied ? 'Copied' : 'Copy'}
+                            </motion.button>
+                          )}
                         </div>
                       );
                     })()}
