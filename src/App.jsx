@@ -12,6 +12,7 @@ import { LotteryCard } from './components/LotteryCard';
 import { Leaderboard } from './components/Leaderboard';
 import { RewardsCard } from './components/RewardsCard';
 import { CirclesSection } from './components/CirclesSection';
+import { TransactionHistory } from './components/TransactionHistory';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
 
@@ -149,9 +150,12 @@ function AppContent() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className="grid lg:grid-cols-2 gap-6"
+              className="space-y-6"
             >
-              <RewardsCard />
+              <div className="grid lg:grid-cols-2 gap-6">
+                <RewardsCard />
+                <TransactionHistory />
+              </div>
               <Leaderboard />
             </motion.div>
           )}

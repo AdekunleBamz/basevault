@@ -3,6 +3,7 @@ import { useAccount, usePublicClient, useWalletClient } from 'wagmi';
 import { parseEther, formatEther, getContract } from 'viem';
 import { useStore } from '../stores/useStore';
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../utils/wagmiConfig';
+import { addTransaction } from '../components/TransactionHistory';
 
 export function useContract() {
   const { address } = useAccount();
@@ -139,6 +140,7 @@ export function useContract() {
       await fetchUserStats(address);
       await fetchProtocolStats();
       await fetchCurrentRound();
+      addTransaction('deposit', hash, amount, address);
       return { success: true, hash };
     } catch (err) {
       console.error('Error depositing:', err);
@@ -163,6 +165,7 @@ export function useContract() {
       await publicClient.waitForTransactionReceipt({ hash });
       await fetchUserStats(address);
       await fetchProtocolStats();
+      addTransaction('withdraw', hash, amount, address);
       return { success: true, hash };
     } catch (err) {
       console.error('Error withdrawing:', err);
@@ -185,6 +188,7 @@ export function useContract() {
       
       await publicClient.waitForTransactionReceipt({ hash });
       await fetchUserStats(address);
+      addTransaction('claim', hash, null, address);
       return { success: true, hash };
     } catch (err) {
       console.error('Error claiming rewards:', err);
