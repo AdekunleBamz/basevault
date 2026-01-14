@@ -16,7 +16,7 @@ import { TransactionHistory } from './components/TransactionHistory';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
 import { useCopyToClipboard } from './hooks/useUtils';
-import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS, REFRESH_INTERVALS } from './utils/constants';
+import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS, REFRESH_INTERVALS, SOCIAL_LINKS } from './utils/constants';
 
 function AppContent() {
   const { address } = useAccount();
@@ -196,6 +196,17 @@ function AppContent() {
               </button>
             </div>
           )}
+          <div className="mt-3 flex items-center justify-center gap-4 text-xs">
+            <a href={SOCIAL_LINKS.DOCS} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              Docs
+            </a>
+            <a href={SOCIAL_LINKS.TWITTER} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              Twitter
+            </a>
+            <a href={SOCIAL_LINKS.DISCORD} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              Discord
+            </a>
+          </div>
         </motion.footer>
       </main>
     </div>
