@@ -16,7 +16,7 @@ import { TransactionHistory } from './components/TransactionHistory';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
 import { useCopyToClipboard } from './hooks/useUtils';
-import { TOAST_CONFIG, BASESCAN_ADDRESS_URL } from './utils/constants';
+import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS } from './utils/constants';
 
 function AppContent() {
   const { address } = useAccount();
@@ -57,7 +57,7 @@ function AppContent() {
     const params = new URLSearchParams(window.location.search);
     const ref = params.get('ref');
     if (ref) {
-      localStorage.setItem('referrer', ref);
+      localStorage.setItem(STORAGE_KEYS.REFERRER, ref);
     }
   }, []);
 
