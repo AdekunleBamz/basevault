@@ -208,3 +208,10 @@ export function useInterval(callback, delay) {
     return () => clearInterval(id);
   }, [delay]);
 }
+
+/**
+ * Custom hook to detect reduced motion preference
+ */
+export function usePrefersReducedMotion() {
+  return useMediaQuery('(prefers-reduced-motion: reduce)');
+}
