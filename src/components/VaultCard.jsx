@@ -6,7 +6,7 @@ import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { getTxUrl, formatETH, formatNumber } from '../utils/helpers';
-import { QUICK_AMOUNTS, GAS_BUFFER, LOTTERY } from '../utils/constants';
+import { QUICK_AMOUNTS, GAS_BUFFER, LOTTERY, LIMITS } from '../utils/constants';
 
 export function VaultCard() {
   const [amount, setAmount] = useState('');
@@ -163,7 +163,8 @@ export function VaultCard() {
               id="vault-amount"
               type="number"
               step="0.0001"
-              min="0"
+              min={isDeposit ? LIMITS.MIN_DEPOSIT : LIMITS.MIN_WITHDRAW}
+              max={isDeposit ? LIMITS.MAX_DEPOSIT : undefined}
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.0"
