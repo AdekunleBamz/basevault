@@ -3,6 +3,7 @@ import { useAccount } from 'wagmi';
 import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ACHIEVEMENTS } from '../utils/wagmiConfig';
+import { useCopyToClipboard } from '../hooks/useUtils';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 
@@ -10,6 +11,7 @@ export function RewardsCard() {
   const { address, isConnected } = useAccount();
   const { claimRewards } = useContract();
   const { userStats, isLoading } = useStore();
+  const { copy, hasCopied } = useCopyToClipboard();
 
   const handleClaim = async () => {
     const result = await claimRewards();
@@ -25,9 +27,10 @@ export function RewardsCard() {
     ? `${window.location.origin}?ref=${address}`
     : '';
 
-  const copyReferralLink = () => {
-    navigator.clipboard.writeText(referralLink);
-    toast.success('Referral link copied!');
+  const copyReferralLink = async () => {
+    if (!referralLink) return;
+    const success = await copy(referralLink);
+    if (success) toast.success('Referral link copied!');
   };
 
   // Get unlocked achievements
@@ -111,7 +114,7 @@ export function RewardsCard() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Copy
+              {hasCopied ? 'Copied' : 'Copy'}
             </motion.button>
           </div>
           <p className="text-xs text-gray-400 mt-1">
