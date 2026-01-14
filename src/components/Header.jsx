@@ -4,7 +4,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useBalance } from 'wagmi';
 import { useStore } from '../stores/useStore';
 import { NAV_TABS } from '../utils/constants';
-import { formatETH } from '../utils/helpers';
+import { formatETH, formatNumber } from '../utils/helpers';
 
 export function Header() {
   const { address, isConnected } = useAccount();
@@ -88,7 +88,7 @@ export function Header() {
                   <div>
                     <div className="text-xs text-gray-400">Tickets</div>
                     <div className="font-mono font-bold text-sm text-base-accent">
-                      {parseInt(userStats.tickets).toLocaleString()}
+                      {formatNumber(userStats.tickets)}
                     </div>
                   </div>
                 </div>
@@ -244,7 +244,7 @@ export function Header() {
             <div className="flex items-center gap-2">
               <span className="text-gray-400 text-sm">Tickets:</span>
               <span className="font-mono font-bold text-sm text-base-accent">
-                {parseInt(userStats.tickets).toLocaleString()}
+                {formatNumber(userStats.tickets)}
               </span>
             </div>
           )}
