@@ -5,6 +5,7 @@ import { useLocalStorage } from '../hooks/useUtils';
 import { formatAddress, formatETH, formatRelativeTime, getTxUrl } from '../utils/helpers';
 import { STORAGE_KEYS } from '../utils/constants';
 import { EmptyState } from './EmptyState';
+import { useCopyToClipboard } from '../hooks/useUtils';
 
 /**
  * Transaction History Component
@@ -13,6 +14,7 @@ import { EmptyState } from './EmptyState';
 export function TransactionHistory({ maxItems = 5 }) {
   const { address } = useAccount();
   const [transactions] = useLocalStorage(STORAGE_KEYS.RECENT_TRANSACTIONS, []);
+  const { copy } = useCopyToClipboard();
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Filter transactions for current user
@@ -111,7 +113,21 @@ export function TransactionHistory({ maxItems = 5 }) {
                       </div>
                     </div>
                   </div>
-                  <div className="text-gray-400">
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <button
+                      type="button"
+                      aria-label="Copy transaction hash"
+                      title="Copy transaction hash"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        copy(tx.hash);
+                      }}
+                      className="hover:text-white transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16h8M8 12h8M8 8h8M6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z" />
+                      </svg>
+                    </button>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
