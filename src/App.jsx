@@ -16,7 +16,7 @@ import { TransactionHistory } from './components/TransactionHistory';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
 import { useCopyToClipboard } from './hooks/useUtils';
-import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS, REFRESH_INTERVALS, SOCIAL_LINKS } from './utils/constants';
+import { TOAST_CONFIG, BASESCAN_ADDRESS_URL, STORAGE_KEYS, REFRESH_INTERVALS, SOCIAL_LINKS, SUPPORTED_CHAIN_NAME } from './utils/constants';
 
 function AppContent() {
   const { address } = useAccount();
@@ -91,7 +91,7 @@ function AppContent() {
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
             <span className="gradient-text">No-Loss</span> Savings
-            <br />on Base Chain
+            <br />on {SUPPORTED_CHAIN_NAME} Chain
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Deposit ETH, earn lottery tickets, win weekly prizes. 
@@ -172,7 +172,7 @@ function AppContent() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <p>BaseVault Protocol • Built on Base Chain</p>
+          <p>BaseVault Protocol • Built on {SUPPORTED_CHAIN_NAME} Chain</p>
           <p className="mt-1">
             <a 
               href={`${BASESCAN_ADDRESS_URL}/${contractAddress}`}
