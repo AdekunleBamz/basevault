@@ -5,6 +5,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
+import { CIRCLES } from '../utils/constants';
 
 export function CirclesSection() {
   const [showCreate, setShowCreate] = useState(false);
@@ -101,7 +102,7 @@ export function CirclesSection() {
                 <input
                   type="number"
                   step="0.01"
-                  min="0.01"
+                  min={CIRCLES.MIN_TARGET}
                   value={formData.targetAmount}
                   onChange={(e) => setFormData({ ...formData, targetAmount: e.target.value })}
                   placeholder="1.0"
@@ -127,8 +128,8 @@ export function CirclesSection() {
                 <label className="block text-sm text-gray-400 mb-2">Max Members</label>
                 <input
                   type="number"
-                  min="2"
-                  max="50"
+                  min={CIRCLES.MIN_MEMBERS}
+                  max={CIRCLES.MAX_MEMBERS}
                   value={formData.maxMembers}
                   onChange={(e) => setFormData({ ...formData, maxMembers: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl bg-base-dark border border-base-border focus:border-base-blue outline-none font-mono"
