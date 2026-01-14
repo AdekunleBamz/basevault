@@ -7,6 +7,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 import { formatCountdown, padNumber, calculatePercent, formatETH } from '../utils/helpers';
 import { InfoTooltip } from './Tooltip';
+import { Spinner } from './LoadingSkeleton';
 
 export function LotteryCard() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -118,7 +119,14 @@ export function LotteryCard() {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
             >
-              {isLoading ? 'Finalizing...' : '🎲 Finalize & Pick Winner'}
+              {isLoading ? (
+                <span className="inline-flex items-center justify-center gap-2">
+                  <Spinner size="sm" className="text-black" />
+                  Finalizing...
+                </span>
+              ) : (
+                '🎲 Finalize & Pick Winner'
+              )}
             </motion.button>
           ) : (
             <ConnectButton.Custom>
