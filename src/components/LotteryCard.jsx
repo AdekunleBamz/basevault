@@ -120,7 +120,7 @@ export function LotteryCard() {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
             >
-              {isLoading ? 'Finalizing...' : '�� Finalize & Pick Winner'}
+              {isLoading ? 'Finalizing...' : '🎲 Finalize & Pick Winner'}
             </motion.button>
           ) : (
             <ConnectButton.Custom>

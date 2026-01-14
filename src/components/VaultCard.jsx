@@ -68,6 +68,12 @@ export function VaultCard() {
     }
   };
 
+  const onToggleKeyDown = (e) => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    setIsDeposit((prev) => !prev);
+  };
+
   return (
     <motion.div 
       className="p-6 rounded-2xl bg-base-card border border-base-border"
@@ -75,10 +81,17 @@ export function VaultCard() {
       animate={{ opacity: 1, y: 0 }}
     >
       {/* Toggle */}
-      <div className="flex gap-2 p-1 rounded-xl bg-base-dark mb-6">
+      <div
+        className="flex gap-2 p-1 rounded-xl bg-base-dark mb-6"
+        role="group"
+        aria-label="Deposit or withdraw"
+        onKeyDown={onToggleKeyDown}
+      >
         <button
+          type="button"
           onClick={() => setIsDeposit(true)}
-          className={`flex-1 py-2.5 rounded-lg font-semibold transition-all ${
+          aria-pressed={isDeposit}
+          className={`flex-1 py-2.5 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-base-blue/60 focus:ring-offset-2 focus:ring-offset-base-darker ${
             isDeposit 
               ? 'bg-gradient-to-r from-base-blue to-base-accent text-white' 
               : 'text-gray-400 hover:text-white'
@@ -87,8 +100,10 @@ export function VaultCard() {
           Deposit
         </button>
         <button
+          type="button"
           onClick={() => setIsDeposit(false)}
-          className={`flex-1 py-2.5 rounded-lg font-semibold transition-all ${
+          aria-pressed={!isDeposit}
+          className={`flex-1 py-2.5 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-base-blue/60 focus:ring-offset-2 focus:ring-offset-base-darker ${
             !isDeposit 
               ? 'bg-gradient-to-r from-base-blue to-base-accent text-white' 
               : 'text-gray-400 hover:text-white'
@@ -132,7 +147,7 @@ export function VaultCard() {
         {/* Amount Input */}
         <div className="mb-4">
           <div className="flex justify-between items-center mb-2">
-            <label className="text-sm text-gray-400">Amount (ETH)</label>
+            <label htmlFor="vault-amount" className="text-sm text-gray-400">Amount (ETH)</label>
             <button
               type="button"
               onClick={setMaxAmount}
@@ -143,13 +158,16 @@ export function VaultCard() {
           </div>
           <div className="relative">
             <input
+              id="vault-amount"
               type="number"
               step="0.0001"
               min="0"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.0"
-              className="w-full px-4 py-3 rounded-xl bg-base-dark border border-base-border focus:border-base-blue outline-none font-mono text-lg"
+              inputMode="decimal"
+              aria-label="Amount in ETH"
+              className="w-full px-4 py-3 rounded-xl bg-base-dark border border-base-border focus:border-base-blue outline-none focus:ring-2 focus:ring-base-blue/40 font-mono text-lg"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
               ETH
@@ -164,7 +182,7 @@ export function VaultCard() {
               key={qa}
               type="button"
               onClick={() => setAmount(qa)}
-              className="flex-1 py-2 rounded-lg bg-base-dark border border-base-border hover:border-base-blue transition-colors text-sm font-mono"
+              className="flex-1 py-2 rounded-lg bg-base-dark border border-base-border hover:border-base-blue transition-colors text-sm font-mono focus:outline-none focus:ring-2 focus:ring-base-blue/40"
             >
               {qa}
             </button>
@@ -188,7 +206,8 @@ export function VaultCard() {
                 value={referrer}
                 onChange={(e) => setReferrer(e.target.value)}
                 placeholder="0x..."
-                className="w-full px-4 py-3 rounded-xl bg-base-dark border border-base-border focus:border-base-blue outline-none font-mono text-sm"
+                aria-label="Referrer address"
+                className="w-full px-4 py-3 rounded-xl bg-base-dark border border-base-border focus:border-base-blue outline-none focus:ring-2 focus:ring-base-blue/40 font-mono text-sm"
               />
             </motion.div>
           )}
