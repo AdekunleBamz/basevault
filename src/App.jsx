@@ -15,12 +15,15 @@ import { CirclesSection } from './components/CirclesSection';
 import { TransactionHistory } from './components/TransactionHistory';
 import { useContract } from './hooks/useContract';
 import { useStore } from './stores/useStore';
+import { useCopyToClipboard } from './hooks/useUtils';
 import { TOAST_CONFIG, BASESCAN_ADDRESS_URL } from './utils/constants';
 
 function AppContent() {
   const { address } = useAccount();
   const { fetchUserStats, fetchProtocolStats, fetchCurrentRound, fetchLeaderboard } = useContract();
   const { activeTab } = useStore();
+  const { copy, hasCopied } = useCopyToClipboard();
+  const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
 
   // Fetch data on mount
   useEffect(() => {
@@ -166,7 +169,7 @@ function AppContent() {
           <p>BaseVault Protocol • Built on Base Chain</p>
           <p className="mt-1">
             <a 
-              href={`${BASESCAN_ADDRESS_URL}/${import.meta.env.VITE_CONTRACT_ADDRESS}`}
+              href={`${BASESCAN_ADDRESS_URL}/${contractAddress}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-base-blue hover:underline"
@@ -174,6 +177,17 @@ function AppContent() {
               View Contract on BaseScan →
             </a>
           </p>
+          {contractAddress && (
+            <div className="mt-2">
+              <button
+                type="button"
+                onClick={() => copy(contractAddress)}
+                className="text-xs text-gray-400 hover:text-white transition-colors"
+              >
+                {hasCopied ? 'Copied contract address' : 'Copy contract address'}
+              </button>
+            </div>
+          )}
         </motion.footer>
       </main>
     </div>
