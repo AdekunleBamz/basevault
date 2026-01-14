@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useBalance } from 'wagmi';
 import { useStore } from '../stores/useStore';
 import { NAV_TABS } from '../utils/constants';
 import { formatETH, formatNumber } from '../utils/helpers';
+import { useOnClickOutside } from '../hooks/useUtils';
 
 export function Header() {
   const { address, isConnected } = useAccount();
   const { userStats, activeTab, setActiveTab } = useStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
   
   // Fetch ETH balance
   const { data: balanceData } = useBalance({
@@ -21,6 +23,8 @@ export function Header() {
     setActiveTab(tabId);
     setIsMenuOpen(false);
   };
+
+  useOnClickOutside(menuRef, () => setIsMenuOpen(false));
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass">
@@ -202,6 +206,7 @@ export function Header() {
         {isMenuOpen && (
           <motion.div
             id="mobile-nav"
+            ref={menuRef}
             className="sm:hidden border-t border-base-border px-4 py-4 bg-base-card/70 backdrop-blur"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
