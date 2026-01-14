@@ -4,6 +4,7 @@ import { useContract } from '../hooks/useContract';
 import { useStore } from '../stores/useStore';
 import { ACHIEVEMENTS } from '../utils/wagmiConfig';
 import { useCopyToClipboard } from '../hooks/useUtils';
+import { formatETH } from '../utils/helpers';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import toast from 'react-hot-toast';
 
@@ -22,7 +23,8 @@ export function RewardsCard() {
     }
   };
 
-  const pendingRewards = userStats ? parseFloat(userStats.pendingRewards) : 0;
+  const pendingRewardsAmount = userStats ? parseFloat(userStats.pendingRewards) : 0;
+  const pendingRewardsDisplay = formatETH(pendingRewardsAmount);
   const referralLink = address 
     ? `${window.location.origin}?ref=${address}`
     : '';
@@ -53,9 +55,9 @@ export function RewardsCard() {
       <div className="p-4 rounded-xl bg-gradient-to-r from-base-blue/20 to-base-accent/20 border border-base-blue/30 mb-4">
         <div className="text-sm text-gray-400 mb-1">Pending Rewards</div>
         <div className="text-3xl font-bold font-mono">
-          {pendingRewards.toFixed(4)} <span className="text-lg">ETH</span>
+          {pendingRewardsDisplay} <span className="text-lg">ETH</span>
         </div>
-        {pendingRewards > 0 && (
+        {pendingRewardsAmount > 0 && (
           isConnected ? (
             <motion.button
               onClick={handleClaim}
@@ -88,11 +90,11 @@ export function RewardsCard() {
         <div className="grid grid-cols-2 gap-3 mb-4">
           <div className="p-3 rounded-xl bg-base-dark">
             <div className="text-xs text-gray-400">Total Winnings</div>
-            <div className="font-bold font-mono">{parseFloat(userStats.totalWinnings).toFixed(4)} ETH</div>
+            <div className="font-bold font-mono">{formatETH(userStats.totalWinnings)} ETH</div>
           </div>
           <div className="p-3 rounded-xl bg-base-dark">
             <div className="text-xs text-gray-400">Referral Earnings</div>
-            <div className="font-bold font-mono">{parseFloat(userStats.referralEarnings).toFixed(4)} ETH</div>
+            <div className="font-bold font-mono">{formatETH(userStats.referralEarnings)} ETH</div>
           </div>
         </div>
       )}
