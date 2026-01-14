@@ -1,30 +1,24 @@
 import { motion } from 'framer-motion';
 import { useStore } from '../stores/useStore';
+import { NAV_TABS } from '../utils/constants';
 
 export function Navigation() {
   const { activeTab, setActiveTab } = useStore();
-
-  const tabs = [
-    { id: 'vault', label: 'Vault', icon: '🔐' },
-    { id: 'lottery', label: 'Lottery', icon: '🎰' },
-    { id: 'circles', label: 'Circles', icon: '👥' },
-    { id: 'rewards', label: 'Rewards', icon: '🎁' },
-  ];
 
   const onKeyDown = (e) => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Home' && e.key !== 'End') return;
     e.preventDefault();
 
-    const currentIndex = tabs.findIndex((t) => t.id === activeTab);
+    const currentIndex = NAV_TABS.findIndex((t) => t.id === activeTab);
     if (currentIndex === -1) return;
 
     let nextIndex = currentIndex;
-    if (e.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-    if (e.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+    if (e.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + NAV_TABS.length) % NAV_TABS.length;
+    if (e.key === 'ArrowRight') nextIndex = (currentIndex + 1) % NAV_TABS.length;
     if (e.key === 'Home') nextIndex = 0;
-    if (e.key === 'End') nextIndex = tabs.length - 1;
+    if (e.key === 'End') nextIndex = NAV_TABS.length - 1;
 
-    const nextTab = tabs[nextIndex];
+    const nextTab = NAV_TABS[nextIndex];
     setActiveTab(nextTab.id);
     requestAnimationFrame(() => {
       document.getElementById(`tab-${nextTab.id}`)?.focus?.();
@@ -38,7 +32,7 @@ export function Navigation() {
       aria-label="Primary navigation"
       onKeyDown={onKeyDown}
     >
-      {tabs.map((tab) => (
+      {NAV_TABS.map((tab) => (
         <motion.button
           key={tab.id}
           onClick={() => setActiveTab(tab.id)}
